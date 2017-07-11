@@ -49,32 +49,14 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.cidic.design" />
-
- 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
-    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-        <beans:property name="defaultEncoding" value="UTF-8"/>  
-        <!-- 指定所上传文件的总大小不能超过8000KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
-        <beans:property name="maxUploadSize" value="12000000"/>  
-    </beans:bean>  
-      
-    <!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->  
-    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->  
-    <beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-        <beans:property name="exceptionMappings">  
-            <beans:props>  
-                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->  
-                <beans:prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</beans:prop>  
-            </beans:props>  
-        </beans:property>  
-    </beans:bean> 
+	<context:component-scan base-package="com.jianma.xtdm" />
     
 	<!-- MySql数据库连接池配置 -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://192.168.3.110:3306/design_competition_seniorman?useUnicode=true&amp;characterEncoding=utf8" />
+			value="jdbc:mysql://192.168.3.110:3306/xtdm?useUnicode=true&amp;characterEncoding=utf8" />
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="root" />
 		<beans:property name="timeBetweenEvictionRunsMillis"
