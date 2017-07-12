@@ -1,5 +1,7 @@
 package com.jianma.xtdm.dao;
 
+import java.util.List;
+
 import com.jianma.xtdm.model.Article;
 
 public interface ArticleDao {
@@ -10,5 +12,7 @@ public interface ArticleDao {
 	
 	public void updateArticle(Article article);
 	
-	public void getArticleByPage(int categoryId, int offset, int limit);
+	public List<Article> getArticleByPage(int categoryId, int offset, int limit);
+	
+	public int getCountArticle(int categoryId);
 }

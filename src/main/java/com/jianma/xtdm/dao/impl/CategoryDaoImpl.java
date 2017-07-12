@@ -1,5 +1,9 @@
 package com.jianma.xtdm.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,26 +24,39 @@ public class CategoryDaoImpl implements CategoryDao {
 	
 	@Override
 	public void createCategory(Category category) {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().save(category);
 	}
 
 	@Override
 	public void deleteCategory(int id) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " delete from Category c  where c.id = ?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, id);
+		query.executeUpdate();
 	}
 
 	@Override
 	public void updateCategory(Category category) {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().update(category);
 	}
 
 	@Override
-	public void getCategoryByPage(int offset, int limit) {
-		// TODO Auto-generated method stub
+	public List<Category> getCategoryByPage(int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Category order by createTime asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+		return query.list();
+	}
 
+	@Override
+	public int getCountCategory() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select count(c) from Category c ";
+		Query query = session.createQuery(hql); 
+        return (int)((Long)query.uniqueResult()).longValue();
 	}
 
 }

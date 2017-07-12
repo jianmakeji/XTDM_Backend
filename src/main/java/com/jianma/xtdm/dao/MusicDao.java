@@ -1,5 +1,7 @@
 package com.jianma.xtdm.dao;
 
+import java.util.List;
+
 import com.jianma.xtdm.model.Music;
 
 public interface MusicDao {
@@ -10,5 +12,7 @@ public interface MusicDao {
 	
 	public void updateMusic(Music music);
 	
-	public void getMusicByPage(int offset, int limit);
+	public List<Music> getMusicByPage(int offset, int limit);
+	
+	public int getCountMusic();
 }

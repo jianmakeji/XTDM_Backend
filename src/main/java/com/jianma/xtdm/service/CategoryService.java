@@ -1,10 +1,9 @@
-package com.jianma.xtdm.dao;
-
-import java.util.List;
+package com.jianma.xtdm.service;
 
 import com.jianma.xtdm.model.Category;
+import com.jianma.xtdm.model.PageObject;
 
-public interface CategoryDao {
+public interface CategoryService {
 
 	public void createCategory(Category category);
 	
@@ -12,7 +11,5 @@ public interface CategoryDao {
 	
 	public void updateCategory(Category category);
 	
-	public List<Category> getCategoryByPage(int offset, int limit);
-	
-	public int getCountCategory();
+	public PageObject getCategoryByPage(int offset, int limit);
 }
