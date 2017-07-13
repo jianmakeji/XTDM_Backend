@@ -44,7 +44,8 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public List<Article> getArticleByPage(int categoryId, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from Article order by createTime desc";
+		String hql = " select new Article(id,categoryId,title,abstractContent,label,"
+				+ " recommand,thumb,createTime) from Article a order by a.createTime desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);
@@ -68,6 +69,22 @@ public class ArticleDaoImpl implements ArticleDao {
 		}
 		
         return (int)((Long)query.uniqueResult()).longValue();
+	}
+
+	@Override
+	public Article getArticleDetailById(int id) {
+		// TODO Auto-generated method stub
+		return (Article)sessionFactory.getCurrentSession().get(Article.class, id);
+	}
+
+	@Override
+	public List<Article> getRecommandArticle(int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " select new Article(id,categoryId,title,abstractContent,label,"
+				+ " recommand,thumb,bgUrl, createTime) from Article a where a.recommand = 1 order by a.createTime desc";
+		Query query = session.createQuery(hql);
+		query.setMaxResults(limit);
+		return query.list();
 	}
 
 }

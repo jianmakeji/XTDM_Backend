@@ -48,4 +48,14 @@ public class ArticleServiceImpl implements ArticleService {
 		return pageObject;
 	}
 
+	@Override
+	public Article getArticleDetailById(int id) {
+		return articleDaoImpl.getArticleDetailById(id);
+	}
+
+	@Override
+	public List<Article> getRecommandArticle(int limit) {
+		return articleDaoImpl.getRecommandArticle(limit);
+	}
+
 }

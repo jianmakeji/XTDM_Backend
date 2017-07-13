@@ -33,14 +33,39 @@ public class Article implements java.io.Serializable {
 	public Article() {
 	}
 
+	public Article(int id, int categoryId, String title, String abstractContent, String label, byte recommand, String thumb,Date createTime){
+		this.categoryId = categoryId;
+		this.title = title;
+		this.abstractContent = abstractContent;
+		this.label = label;
+		this.recommand = recommand;
+		this.thumb = thumb;
+		this.createTime = createTime;
+		this.id = id;
+	}
+	
 	public Article(int categoryId, byte recommand, String content) {
 		this.categoryId = categoryId;
 		this.recommand = recommand;
 		this.content = content;
 	}
 
-	public Article(int categoryId, String title, String abstractContent, String label, byte recommand, String thumb,
+	public Article(int id,int categoryId, String title, String abstractContent, String label, byte recommand, String thumb,
+			String bgUrl, Date createTime) {
+		this.id = id;
+		this.categoryId = categoryId;
+		this.title = title;
+		this.abstractContent = abstractContent;
+		this.label = label;
+		this.recommand = recommand;
+		this.thumb = thumb;
+		this.bgUrl = bgUrl;
+		this.createTime = createTime;
+	}
+	
+	public Article(int id,int categoryId, String title, String abstractContent, String label, byte recommand, String thumb,
 			String bgUrl, Byte type, String content, Date createTime) {
+		this.id = id;
 		this.categoryId = categoryId;
 		this.title = title;
 		this.abstractContent = abstractContent;

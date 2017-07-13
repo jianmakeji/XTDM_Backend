@@ -1,6 +1,7 @@
 package com.jianma.xtdm.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,4 +90,38 @@ public class ArticleController extends XTDMController {
 			throw new XTDMException(500, "获取数据出错");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getArticleDetailById/{id}", method = RequestMethod.GET)
+	public ResultModel getArticleDetailById(HttpServletRequest request, HttpServletResponse response, @PathVariable int id){
+		resultModel = new ResultModel();
+		try{
+			Article article = articleServiceImpl.getArticleDetailById(id);
+			resultModel.setObject(article);
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		catch(Exception e){
+			throw new XTDMException(500, "获取数据出错");
+		}	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getRecommandArticle/{limit}", method = RequestMethod.GET)
+	public ResultModel getRecommandArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable int limit){
+		resultModel = new ResultModel();
+		try{
+			List<Article> article = articleServiceImpl.getRecommandArticle(limit);
+			resultModel.setObject(article);
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		catch(Exception e){
+			throw new XTDMException(500, "获取数据出错");
+		}	
+	}
+	
+	
 }
