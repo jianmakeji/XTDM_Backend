@@ -2,9 +2,7 @@ package com.jianma.xtdm.controller;
 
 import java.awt.image.RenderedImage;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -19,28 +17,17 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jianma.xtdm.XTDMController;
-import com.jianma.xtdm.exception.ServerException;
-import com.jianma.xtdm.exception.XTDMException;
-import com.jianma.xtdm.model.ResultModel;
-import com.jianma.xtdm.model.User;
-import com.jianma.xtdm.model.UserPageModel;
 import com.jianma.xtdm.service.UserService;
 import com.jianma.xtdm.util.GraphicsUtil;
-import com.jianma.xtdm.util.ResponseCodeUtil;
 
 
 /**
