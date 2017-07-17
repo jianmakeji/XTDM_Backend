@@ -24,25 +24,24 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
+	public void home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
 		try {
-			response.sendRedirect("login.html");
+			response.sendRedirect("html/login.html");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return "";
 	}
 	
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
-	public ModelAndView guideCOU(Locale locale, Model model) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("error");
-		return modelAndView;
+	public String error(Locale locale, Model model) {
+		return "error";
 	}
 }

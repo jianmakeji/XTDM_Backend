@@ -46,12 +46,11 @@ public class UserServiceImpl implements UserService {
 				return ResponseCodeUtil.UESR_CREATE_EXIST;
 			} else {
 				PasswordHelper.encryptAppPassword(user);
-				user.setActivecode(PasswordHelper.getMD5(user.getEmail()));
 				Set<UserRole> userRoles = new HashSet<>();
 				UserRole userRole = new UserRole();
 				userRole.setUser(user);
 				Role role = new Role();
-				role.setId(3);
+				role.setId(1);
 				userRole.setRole(role);
 				userRoles.add(userRole);
 				user.setUserRoles(userRoles);

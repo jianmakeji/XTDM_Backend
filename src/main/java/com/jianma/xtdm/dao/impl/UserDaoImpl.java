@@ -219,7 +219,6 @@ public class UserDaoImpl implements UserDao {
             user.setMobile(mobile);
             user.setAddress(address);
             user.setValid((byte)valid);
-            user.setActivesign((byte)activesign);
             user.setId(id);
             
             userList.add(user);
