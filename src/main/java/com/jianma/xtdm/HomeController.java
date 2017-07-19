@@ -1,7 +1,6 @@
 package com.jianma.xtdm;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -22,6 +21,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import com.jianma.xtdm.util.WebRequestUtil;
 
 /**
  * Handles requests for the application home page.
@@ -53,7 +53,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/uploadKey", method = RequestMethod.GET)
-	public @ResponseBody  Map<String, String> uploadKey(Locale locale, Model model) {
+	public @ResponseBody  Map<String, String> uploadKey(HttpServletRequest request,HttpServletResponse response,Locale locale, Model model) {
+		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		String endpoint = "oss-cn-hangzhou.aliyuncs.com";
         String accessId = "LTAI6sQldcdFoZQt";
         String accessKey = "zl4ywIXQbPhml9LRhwxMsO5w776Ys9";
