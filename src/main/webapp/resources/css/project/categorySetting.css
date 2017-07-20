@@ -43,3 +43,28 @@
 	bottom: 10px;
 	right: 30%;
 }
+
+#circleProgress{
+	position: absolute;
+	top: calc(50% + 100px);
+	left: calc(50% - 20px);
+	display: none;
+}
+
+#imagePanel img{
+	width: 25%;
+	height: auto;
+	display: inline-block;
+	max-width: 150px;
+}
+
+#operateImg{
+	width: 50%;
+	height: auto;
+	margin-left: 10%;
+	display: inline-block;
+}
+
+#imagePanel p{
+	margin-left: 15px;
+}

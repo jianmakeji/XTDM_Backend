@@ -15,7 +15,7 @@
 				<input id="condition" type="text" class="validate">
 				<label for="condition">搜索</label>
 			</div>
-			
+
 			<div id="dataTable">
 				<table class="striped centered">
 					<thead>
@@ -26,12 +26,12 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tableBody">
 						<tr v-for="value in datas">
 							<td>{{value.name}}</td>
 							<td>{{value.author}}</td>
 							<td>{{value.date}}</td>
-							<td>修改 删除</td>
+							<td><a href="#" :id="value.id" @click="updateData($event)">修改</a> <a href="#" :id="value.id" @click="deleteData($event)">删除</a></td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -54,7 +54,7 @@
 				</ul>
 			</div>
 		</section>
-		
+
 		<section id="addPanel">
 			<div class="row">
 				<div class="input-field col s12">
@@ -66,29 +66,42 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="small material-icons prefix">subtitles</i>
-					<input id="describe" type="text" class="validate">
-					<label for="describe">作者</label>
+					<input id="author" type="text" class="validate">
+					<label for="author">作者</label>
 				</div>
+			</div>
+
+			<div id="filePanel">
+				<p>请上传MP3文件：</p>
+				<div><b id="fileDescribe"><span id="fileCompletePersent"></span></b>
+					<div class="progress">
+						<div class="determinate" style="width: 1%"></div>
+					</div>
+				</div>
+				<div id="container">
+					<a id="selectfiles" href="javascript:void(0);" class='btn waves-effect waves-light cyan lighten-1'>选择文件</a>
+				</div>
+
+				<pre id="console"></pre>
+				<p>&nbsp;</p>
+			</div>
+
+			<div id="videoPanel">
+				<audio id="bgMusic" src="" controls loop>
+				</audio>
+				<button id="updateMusic" class="btn waves-effect waves-light cyan lighten-1">修改音乐</button>
 			</div>
 			
-			<div class="file-field input-field">
-
-				<div class="btn cyan lighten-1">
-					<span>文件</span>
-					<input type="file">
-				</div>
-				<div class="file-path-wrapper">
-					<input class="file-path validate" type="text">
-				</div>
-			</div>
 			<button id="submit" class="btn waves-effect waves-light cyan lighten-1" type="submit" name="action">提交
     			<i class="material-icons right">send</i>
   			</button>
-  			<button id="cancel" class="btn waves-effect waves-light cyan lighten-1" type="submit" name="action">取消
+			<button id="cancel" class="btn waves-effect waves-light cyan lighten-1" type="submit" name="action">取消
     			<i class="material-icons right">replay</i>
   			</button>
 		</section>
 	</body>
+	<script type="text/javascript" src="../resources/js/plupload-2.3.1/plupload.full.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="../resources/js/project/ossupload.js"></script>
 	<script type="text/javascript" src="../resources/js/project/music.js"></script>
-	
+
 </html>

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
@@ -52,14 +53,34 @@ public class HomeController {
 		return "error";
 	}
 	
-	@RequestMapping(value = "/uploadKey", method = RequestMethod.GET)
-	public @ResponseBody  Map<String, String> uploadKey(HttpServletRequest request,HttpServletResponse response,Locale locale, Model model) {
+	@RequestMapping(value = "/controller", method = RequestMethod.GET)
+	public String getControllerFile(Locale locale, Model model) {
+		return "controller";
+	}
+	
+	@RequestMapping(value = "/controller", method = RequestMethod.POST)
+	public String controller(Locale locale, Model model) {
+		return "controller";
+	}
+	
+	@RequestMapping(value = "/uploadKey/{type}", method = RequestMethod.GET)
+	public @ResponseBody  Map<String, String> uploadKey(HttpServletRequest request,HttpServletResponse response,Locale locale, Model model, @PathVariable int type) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
 		String endpoint = "oss-cn-hangzhou.aliyuncs.com";
         String accessId = "LTAI6sQldcdFoZQt";
         String accessKey = "zl4ywIXQbPhml9LRhwxMsO5w776Ys9";
         String bucket = "xtdm";
-        String dir = "xtdm_";
+        String dir = "";
+        if (type == 1){
+        	dir = "music/";
+        }
+        else if(type == 2){
+        	dir = "category/";
+        }
+        else{
+        	dir = "others/";
+        }
+        
         String host = "http://" + bucket + "." + endpoint;
         OSSClient client = new OSSClient(endpoint, accessId, accessKey);
         try { 	
