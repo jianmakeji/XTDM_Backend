@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import com.jianma.xtdm.util.ConfigInfo;
 import com.jianma.xtdm.util.WebRequestUtil;
 
 /**
@@ -32,7 +36,9 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-
+	@Autowired
+	@Qualifier(value = "configInfo")
+	private ConfigInfo configInfo;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -66,10 +72,10 @@ public class HomeController {
 	@RequestMapping(value = "/uploadKey/{type}", method = RequestMethod.GET)
 	public @ResponseBody  Map<String, String> uploadKey(HttpServletRequest request,HttpServletResponse response,Locale locale, Model model, @PathVariable int type) {
 		WebRequestUtil.AccrossAreaRequestSet(request, response);
-		String endpoint = "oss-cn-hangzhou.aliyuncs.com";
-        String accessId = "LTAI6sQldcdFoZQt";
-        String accessKey = "zl4ywIXQbPhml9LRhwxMsO5w776Ys9";
-        String bucket = "xtdm";
+		String endpoint = configInfo.endpoint;
+        String accessId = configInfo.accessId;
+        String accessKey = configInfo.accessKey;
+        String bucket = configInfo.bucket;
         String dir = "";
         if (type == 1){
         	dir = "music/";
@@ -110,5 +116,7 @@ public class HomeController {
             
             return null;
         }
+        
 	}
+	
 }

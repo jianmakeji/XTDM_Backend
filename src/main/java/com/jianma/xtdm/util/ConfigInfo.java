@@ -10,21 +10,16 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value="classpath:config.properties")
 public class ConfigInfo {
 
-	@Value("${email_active_url}")
-	public String email_active_url;
+	@Value("${endpoint}")
+	public String endpoint;
 	
-	@Value("${email_active_from}")
-	public String email_active_from;
+	@Value("${accessId}")
+	public String accessId;
 	
-	@Value("${email_active_from_name}")
-	public String email_active_from_name;
+	@Value("${accessKey}")
+	public String accessKey;
 	
-	@Value("${email_active_subject}")
-	public String email_active_subject;
-	
-	@Value("${contribute_end_time}")
-	public String contribute_end_time;
-	
-	@Value("${email_review_subject}")
-	public String email_review_subject;
+	@Value("${bucket}")
+	public String bucket;
+			
 }
