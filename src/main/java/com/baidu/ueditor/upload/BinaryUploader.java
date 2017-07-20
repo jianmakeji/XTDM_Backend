@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +26,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class BinaryUploader {
 
 	public static final State save(HttpServletRequest request, Map<String, Object> conf) {
+		
+		ResourceBundle resource = ResourceBundle.getBundle("config");
+		
 		FileItemStream fileStream = null;
 		boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
 
@@ -79,28 +83,19 @@ public class BinaryUploader {
 				UploadOSSUtil uploadOSSUtil = new UploadOSSUtil();
 				uploadOSSUtil.uploadImgAliyun(is, fileName);
 				storageState = StorageManager.saveFileByInputStream(is, physicalPath, maxSize);
-				storageState.putInfo("state", "SUCCESS");// UEDITOR�Ĺ���:��ΪSUCCESS����ʾstate������
-				// ע�⣺�����url�Ƿ��ص�ǰ�˷����ļ���·�����������޸�
-				storageState.putInfo("url","http://xtdm.oss-cn-hangzhou.aliyuncs.com/article/" + fileName +"?x-oss-process=style/content-500");
+				storageState.putInfo("state", "SUCCESS");
+				storageState.putInfo("url","http://"+resource.getString("bucket")+"."+resource.getString("endpoint")+"/article/" + fileName + resource.getString("imageRule1"));
 				storageState.putInfo("title", fileName);
 				storageState.putInfo("original", fileName);
 			} catch (Exception e) {
-				
-				storageState.putInfo("state", "�ļ��ϴ�ʧ��!");
+				storageState.putInfo("state", "文件上传失败!");
 				storageState.putInfo("url", "");
 				storageState.putInfo("title", "");
 				storageState.putInfo("original", "");
-				// System.out.println("�ļ� "+fileName+" �ϴ�ʧ��!");
 			}
 
 			is.close();
-			/*
-			if (storageState.isSuccess()) {
-				storageState.putInfo("url", PathFormat.format(savePath));
-				storageState.putInfo("type", suffix);
-				storageState.putInfo("original", originFileName + suffix);
-			}*/
-
+			
 			return storageState;
 		} catch (FileUploadException e) {
 			return new BaseState(false, AppInfo.PARSE_REQUEST_ERROR);
