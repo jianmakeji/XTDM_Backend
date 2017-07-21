@@ -87,4 +87,25 @@ public class ArticleDaoImpl implements ArticleDao {
 		return query.list();
 	}
 
+	@Override
+	public List<Article> getArticleKeywordByPage(String keyword, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " select new Article(id,categoryId,title,abstractContent,label,"
+				+ " recommand,thumb,createTime) from Article a where a.title like :keyward order by a.createTime desc";
+		Query query = session.createQuery(hql);
+		query.setParameter("keyward","%"+keyword+"%");    
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+		return query.list();
+	}
+
+	@Override
+	public int getCountArticleByKeyword(String keyword) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select count(a) from Article a where a.title like :keyward";
+		Query query = session.createQuery(hql); 
+		query.setParameter("keyward","%"+keyword+"%");
+        return (int)((Long)query.uniqueResult()).longValue();
+	}
+
 }

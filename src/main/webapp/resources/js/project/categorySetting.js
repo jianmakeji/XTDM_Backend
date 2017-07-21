@@ -1,5 +1,7 @@
 var picUrl = "";
 var showCategory = 0;
+var insertOrUpdate = 0;
+var updateId = 0;
 
 var vum = new Vue({
 	el: '#dataTable',
@@ -8,45 +10,57 @@ var vum = new Vue({
 	},
 	methods: {
 		updateData: function(e) {
-			let id = e.currentTarget.id;
-			vum.datas.forEach(function(musicObj) {
-				if(musicObj.id == id) {
-					$("#title").val(musicObj.name);
-					$("#describe").val(musicObj.describe);
+			updateId = e.currentTarget.id;
+			var insertOrUpdate = 1;
 
-					if(showMusicPanel == 0) {
-						showMusicPanel = 1;
+			vum.datas.forEach(function(categoryObj) {
+				if(categoryObj.id == updateId) {
+					$("#title").val(categoryObj.name);
+					$("#titleLabel").addClass('active');
+
+					$("#describe").val(categoryObj.describe);
+					$("#describeLabel").addClass('active');
+
+					if(showCategory == 0) {
+						showCategory = 1;
 						$("#addPanel").show('slow');
 					} else {
-						showMusicPanel = 0;
+						showCategory = 0;
 						$("#addPanel").hide();
 					}
-					
+
 				}
 			});
 		},
-		deleteData:function(e){
+		deleteData: function(e) {
 			let id = e.currentTarget.id;
-			
+
 			$.ajax({
 
 				type: "POST",
-				url: "",
+				url: "../category/delete/"+id,
 				dataType: "json",
 				data: data,
 				beforeSend: function() {
 					$("#circleProgress").show();
 				},
 				success: function(msg) {
+					var i = 0;
+					vum.datas.forEach(function(categoryObj) {
+						i = i + 1;
+						if(categoryObj.id == updateId) {
+							vum.datas.splice(i, 1);
+						}
+					});
+					
 					$("#circleProgress").hide();
-					resetPanel();
 				},
 				statusCode: {
 					404: function() {
-						alert('page not found');
+						Materialize.toast('找不到页面!', 4000);
 					},
 					500: function() {
-
+						Materialize.toast('服务器内部错误!', 4000);
 					}
 				}
 			});
@@ -138,19 +152,22 @@ function resetPanel() {
 	$("#fileDescribe").html('');
 	$("#fileCompletePersent").html('');
 	$(".progress").hide();
+	$("#titleLabel").removeClass('active');
+	$("#describeLabel").removeClass('active');
+	var insertOrUpdate = 0;
 }
 
 (function() {
 
 	$(".progress").hide();
 	
-	
-	$.getJSON("../resources/category.json", function(data) {
-
+	$.getJSON("../category/getCategoryByPage",{offset:0,limit:1000}, function(data) {
 		vum.datas = data;
 	});
-
+	
+	
 	$("#addCategory").click(function() {
+		var insertOrUpdate = 0;
 		if(showCategory == 0) {
 			showCategory = 1;
 			$("#addPanel").show('slow');
@@ -158,11 +175,6 @@ function resetPanel() {
 			showCategory = 0;
 			$("#addPanel").hide();
 		}
-	});
-
-	$("#cancel").click(function() {
-		showCategory = 0;
-		$("#addPanel").hide();
 	});
 
 	var bgImgUrl = "";
@@ -187,16 +199,45 @@ function resetPanel() {
 			"bgImgUrl": bgImgUrl
 		};
 
+		var requestUrl = "";
+		
+		if(insertOrUpdate == 0) {
+			//插入数据
+			requestUrl = "../category/create";
+		} else if(insertOrUpdate == 1) {
+			
+			//更新数据
+			data.push({
+				'id':
+				updateId
+			});
+			requestUrl = "../category/update";
+		}
+
 		$.ajax({
 
 			type: "POST",
-			url: "some.php",
+			url: requestUrl,
 			dataType: "json",
 			data: data,
 			beforeSend: function() {
 				$("#circleProgress").show();
 			},
 			success: function(msg) {
+				//将数据通过vue.js更新到数据列表
+				if(insertOrUpdate == 0) {
+					//插入数据
+					vum.datas.push(requestData);
+				} else if(insertOrUpdate == 1) {
+					vum.datas.forEach(function(musicObj) {
+						if(musicObj.id == updateId) {
+							musicObj.name = title;
+							musicObj.author = author;
+							musicObj.url = mp3Url;
+						}
+					});
+				}
+
 				$("#circleProgress").hide();
 				resetPanel();
 			},

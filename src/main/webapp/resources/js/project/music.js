@@ -1,23 +1,31 @@
 var showMusicPanel = 0;
+var insertOrUpdate = 0;//插入或更新标志
+var updateId = 0; //更新记录的ID
+var prePage = 1;//前一页，用于css修改点击样式
+var currentPage = 0; //当前页码
 
 var vum = new Vue({
 	el: '#dataTable',
 	data: {
 		datas: "",
-		pageNum: "",
-		activeNumber: 1,
-		pageCount: 10
+		pageNum: "", //数据总共分为多少页
+		activeNumber: 1, //当前显示页的ID
+		dataLength: 0, //总数据长度
+		paginationNum:0, //当前处在第几块分页
+		currentPaginationCount:10, //记录当前分页块总共有多少页
+		paginationCount:0 //记录有多少分页块
 	},
 	methods: {
 		updateData: function(e) {
 
-			let id = e.currentTarget.id;
-			
+			updateId = e.currentTarget.id;
+			insertOrUpdate = 1;
 			vum.datas.forEach(function(musicObj) {
-				if(musicObj.id == id) {
+				if(musicObj.id == updateId) {
 					$("#title").val(musicObj.name);
+					$("#musicLabel").addClass('active');
 					$("#author").val(musicObj.author);
-
+					$("#authorLabel").addClass('active');
 					if(showMusicPanel == 0) {
 						showMusicPanel = 1;
 						$("#addPanel").show('slow');
@@ -26,7 +34,7 @@ var vum = new Vue({
 						$("#addPanel").hide();
 					}
 
-					if(musicObj.url != undefined && musicObj.url != '') {
+					if(musicObj.url) {
 						$("#filePanel").hide();
 						$("#videoPanel").show();
 					}
@@ -40,7 +48,7 @@ var vum = new Vue({
 			$.ajax({
 
 				type: "POST",
-				url: "",
+				url: "/music/delete/"+id,
 				dataType: "json",
 				data: data,
 				beforeSend: function() {
@@ -59,6 +67,42 @@ var vum = new Vue({
 					}
 				}
 			});
+		},
+		getPageData:function(e){
+			//$('li[id='+prePage+']').removeClass('active').addClass('waves-effect');
+			$(".pagination").find('li[id='+prePage+']').removeClass('active').addClass('waves-effect');
+			let id = e.currentTarget.id;
+			this.activeNumber = id;
+			//$('li[id='+id+']').addClass('active');
+			$(".pagination").find('li[id='+id+']').addClass('active');
+			prePage = id;
+			
+			$.getJSON("../resources/music.json", {offset:id*10,limit:10}, function(data) {
+				
+				vum.datas = data.slice((id - 1) * 10, (id - 1) * 10 + 10);
+				
+			});
+	
+		},
+		prePageClick:function(e){
+			vum.paginationNum = vum.paginationNum - 1;
+			if (vum.paginationNum === 0){
+				$("#chevron_left").hide();
+			}
+			$("#chevron_right").show();
+			vum.currentPaginationCount = 10;
+		},
+		nextPageClick:function(e){
+			$("#chevron_left").show();
+			vum.paginationNum = vum.paginationNum + 1;
+			
+			if (vum.paginationNum === (vum.paginationCount - 1)){
+				$("#chevron_right").hide();
+				vum.currentPaginationCount = Math.ceil((vum.dataLength - vum.paginationNum * 10 * 10)/10);
+			}
+			else{
+				vum.currentPaginationCount = 10;
+			}
 		}
 	}
 
@@ -103,7 +147,6 @@ var uploader = new plupload.Uploader({
 		},
 
 		BeforeUpload: function(up, file) {
-
 			set_upload_param(up, file.name, true);
 		},
 
@@ -147,24 +190,39 @@ function resetPanel() {
 	$("#fileDescribe").html('');
 	$("#fileCompletePersent").html('');
 	$(".progress").hide();
+	$("#titleLabel").removeClass('active');
+	$("#authorLabel").removeClass('active');
+	insertOrUpdate = 0;
 }
 
 (function() {
 
 	$("#videoPanel").hide();
-	var currentPage = 0;
-
-	$.getJSON("../resources/music.json", function(data) {
-		var pageNum = data.length / 10;
-		if(data.length % 10 != 0) {
-			pageNum = pageNum + 1;
+	$("#chevron_left").hide();
+	
+	$.getJSON("../resources/music.json", {offset:0,limit:10}, function(data) {
+		var pageNum = Math.ceil(data.length / 10);
+		
+		if(pageNum > 10) {
+			vum.currentPaginationCount = 10;
 		}
+		else{
+			vum.currentPaginationCount = pageNum;
+		}
+		
+		vum.dataLength = data.length;
 		vum.datas = data.slice(currentPage * 10, currentPage * 10 + 10);
 		vum.pageNum = pageNum;
-
+		vum.paginationCount = Math.ceil(pageNum / 10);
+		
+		if (pageNum <= 10){
+			$("#chevron_right").hide();
+			$("#chevron_left").hide();
+		}
 	});
 
 	$("#addMusic").click(function() {
+		insertOrUpdate = 0;
 		if(showMusicPanel == 0) {
 			showMusicPanel = 1;
 			$("#addPanel").show('slow');
@@ -204,22 +262,49 @@ function resetPanel() {
 			return;
 		}
 
-		let data = {
+		let requestData = {
 			"name": title,
 			"author": author,
 			"url": mp3Url
 		};
 
+		var requestUrl = "";
+		
+		if(insertOrUpdate == 0) {
+			//写入数据
+			
+			requestUrl = "../category/create";
+		} else if(insertOrUpdate == 1) {
+			//更新数据
+			requestData.push({
+				'id':
+				updateId
+			});
+			requestUrl = "../category/update";
+		}
+
 		$.ajax({
 
 			type: "POST",
-			url: "",
+			url: requestUrl,
 			dataType: "json",
-			data: data,
+			data: requestData,
 			beforeSend: function() {
 				$("#circleProgress").show();
 			},
 			success: function(msg) {
+				if(insertOrUpdate == 0) {
+					//插入数据
+					vum.datas.push(requestData);
+				} else if(insertOrUpdate == 1) {
+					vum.datas.forEach(function(musicObj) {
+						if(musicObj.id == updateId) {
+							musicObj.name = title;
+							musicObj.author = author;
+							musicObj.url = mp3Url;
+						}
+					});
+				}
 				$("#circleProgress").hide();
 				resetPanel();
 			},

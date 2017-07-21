@@ -28,4 +28,6 @@ public interface ArticleService {
 	 * @return
 	 */
 	public List<Article> getRecommandArticle(int limit);
+	
+	public PageObject getArticleKeywordByPage(String keyword, int offset, int limit);
 }

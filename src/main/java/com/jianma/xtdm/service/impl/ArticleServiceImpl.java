@@ -58,4 +58,14 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDaoImpl.getRecommandArticle(limit);
 	}
 
+	@Override
+	public PageObject getArticleKeywordByPage(String keyword, int offset, int limit) {
+		PageObject pageObject = new PageObject();
+		List<Article> list = articleDaoImpl.getArticleKeywordByPage(keyword, offset, limit);
+		int countPage = articleDaoImpl.getCountArticleByKeyword(keyword);
+		pageObject.setCount(countPage);
+		pageObject.setList(list);
+		return pageObject;
+	}
+
 }

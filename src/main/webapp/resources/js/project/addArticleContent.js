@@ -36,7 +36,7 @@ $(document).ready(function() {
 	//对编辑器的操作最好在编辑器ready之后再做
 	ue.ready(function() {
 		//设置编辑器的内容
-		ue.setContent('');
+		ue.setContent('hello');
 		//获取html内容，返回: <p>hello</p>
 		var html = ue.getContent();
 		//获取纯文本内容，返回: hello

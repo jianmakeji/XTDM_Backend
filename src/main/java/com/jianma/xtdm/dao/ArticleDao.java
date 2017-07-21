@@ -29,4 +29,9 @@ public interface ArticleDao {
 	 * @return
 	 */
 	public List<Article> getRecommandArticle(int limit);
+	
+	
+	public List<Article> getArticleKeywordByPage(String keyword, int offset,int limit);
+	
+	public int getCountArticleByKeyword(String keyword);
 }

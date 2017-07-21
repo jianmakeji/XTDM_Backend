@@ -75,7 +75,7 @@ public class CategoryController extends XTDMController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getCategoryByPage", method = RequestMethod.POST)
+	@RequestMapping(value="/getCategoryByPage", method = RequestMethod.GET)
 	public ResultModel getCategoryByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  int offset, @RequestParam  int limit){
 		resultModel = new ResultModel();
 		try{
