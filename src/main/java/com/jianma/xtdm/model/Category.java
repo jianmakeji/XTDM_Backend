@@ -20,16 +20,16 @@ public class Category implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private String describe;
+	private String description;
 	private String bgImgUrl;
 	private Date createTime;
 
 	public Category() {
 	}
 
-	public Category(String name, String describe, String bgImgUrl, Date createTime) {
+	public Category(String name, String description, String bgImgUrl, Date createTime) {
 		this.name = name;
-		this.describe = describe;
+		this.description = description;
 		this.bgImgUrl = bgImgUrl;
 		this.createTime = createTime;
 	}
@@ -55,13 +55,13 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "describe", length = 100)
-	public String getDescribe() {
-		return this.describe;
+	@Column(name = "description", length = 100)
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Column(name = "bgImgUrl", length = 100)
