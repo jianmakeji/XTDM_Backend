@@ -5,7 +5,7 @@ import com.jianma.xtdm.model.PageObject;
 
 public interface CategoryService {
 
-	public void createCategory(Category category);
+	public int createCategory(Category category);
 	
 	public void deleteCategory(int id);
 	

@@ -6,7 +6,7 @@ import com.jianma.xtdm.model.Category;
 
 public interface CategoryDao {
 
-	public void createCategory(Category category);
+	public int createCategory(Category category);
 	
 	public void deleteCategory(int id);
 	

@@ -35,9 +35,10 @@ public class CategoryController extends XTDMController {
 		resultModel = new ResultModel();
 		try {
 			category.setCreateTime(new Date());
-			categoryServiceImpl.createCategory(category);
+			int id = categoryServiceImpl.createCategory(category);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
+			resultModel.setObject(id);
 			return resultModel;
 		} catch (Exception e) {
 			throw new XTDMException(500, "创建出错");

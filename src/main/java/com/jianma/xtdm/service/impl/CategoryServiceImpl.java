@@ -24,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 	private  CategoryDao categoryDaoImpl;
 	
 	@Override
-	public void createCategory(Category category) {
-		categoryDaoImpl.createCategory(category);
+	public int createCategory(Category category) {
+		return (int)categoryDaoImpl.createCategory(category);
 	}
 
 	@Override

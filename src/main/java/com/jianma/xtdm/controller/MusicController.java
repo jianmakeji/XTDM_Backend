@@ -35,9 +35,10 @@ public class MusicController extends XTDMController {
 		resultModel = new ResultModel();
 		try {
 			music.setCreateTime(new Date());
-			musicServiceImpl.createMusic(music);
+			int id = musicServiceImpl.createMusic(music);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
+			resultModel.setObject(id);
 			return resultModel;
 		} catch (Exception e) {
 			throw new XTDMException(500, "创建出错");
@@ -75,7 +76,7 @@ public class MusicController extends XTDMController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getMusicByPage", method = RequestMethod.POST)
+	@RequestMapping(value="/getMusicByPage", method = RequestMethod.GET)
 	public ResultModel getMusicByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  int offset, @RequestParam  int limit){
 		resultModel = new ResultModel();
 		try{

@@ -6,7 +6,7 @@ import com.jianma.xtdm.model.Article;
 
 public interface ArticleDao {
 	
-	public void createArticle(Article article);
+	public int createArticle(Article article);
 	
 	public void deleteArticle(int id);
 	

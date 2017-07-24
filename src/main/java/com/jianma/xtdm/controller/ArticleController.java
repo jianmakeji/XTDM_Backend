@@ -36,9 +36,11 @@ public class ArticleController extends XTDMController {
 		resultModel = new ResultModel();
 		try {
 			article.setCreateTime(new Date());
-			articleServiceImpl.createArticle(article);
+			int id = articleServiceImpl.createArticle(article);
+			System.out.println("======================================:"+id);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
+			resultModel.setObject(id);
 			return resultModel;
 		} catch (Exception e) {
 			throw new XTDMException(500, "创建出错");

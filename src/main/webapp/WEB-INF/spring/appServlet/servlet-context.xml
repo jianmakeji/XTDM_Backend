@@ -27,7 +27,7 @@
                             <beans:bean class="java.text.SimpleDateFormat">  
                                 <beans:constructor-arg type="java.lang.String" value="yyyy-MM-dd" />  
                             </beans:bean>  
-                        </beans:property>  
+                        </beans:property>
                     </beans:bean>  
                 </beans:property> 
 			</beans:bean>

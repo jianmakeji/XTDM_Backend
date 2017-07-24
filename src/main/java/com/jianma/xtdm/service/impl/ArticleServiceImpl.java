@@ -24,8 +24,8 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleDao articleDaoImpl;
 	
 	@Override
-	public void createArticle(Article article) {
-		articleDaoImpl.createArticle(article);
+	public int createArticle(Article article) {
+		return articleDaoImpl.createArticle(article);
 	}
 
 	@Override

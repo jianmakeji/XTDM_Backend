@@ -25,8 +25,8 @@ public class MusicServiceImpl implements MusicService {
 	private  MusicDao musicDaoImpl;
 	
 	@Override
-	public void createMusic(Music music) {
-		musicDaoImpl.createMusic(music);
+	public int createMusic(Music music) {
+		return musicDaoImpl.createMusic(music);
 	}
 
 	@Override

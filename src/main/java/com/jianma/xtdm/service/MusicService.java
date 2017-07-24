@@ -5,7 +5,7 @@ import com.jianma.xtdm.model.PageObject;
 
 public interface MusicService {
 
-	public void createMusic(Music music);
+	public int createMusic(Music music);
 	
 	public void deleteMusic(int id);
 	

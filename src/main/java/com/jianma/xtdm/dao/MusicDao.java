@@ -6,7 +6,7 @@ import com.jianma.xtdm.model.Music;
 
 public interface MusicDao {
 
-	public void createMusic(Music music);
+	public int createMusic(Music music);
 	
 	public void deleteMusic(int id);
 	

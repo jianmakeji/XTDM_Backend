@@ -23,8 +23,8 @@ public class MusicDaoImpl implements MusicDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void createMusic(Music music) {
-		sessionFactory.getCurrentSession().save(music);
+	public int createMusic(Music music) {
+		return (int)sessionFactory.getCurrentSession().save(music);
 	}
 
 	@Override

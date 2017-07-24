@@ -23,8 +23,8 @@ public class CategoryDaoImpl implements CategoryDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void createCategory(Category category) {
-		sessionFactory.getCurrentSession().save(category);
+	public int createCategory(Category category) {
+		return (int)sessionFactory.getCurrentSession().save(category);
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class ArticleDaoImpl implements ArticleDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void createArticle(Article article) {
-		sessionFactory.getCurrentSession().save(article);
+	public int createArticle(Article article) {
+		return (int)sessionFactory.getCurrentSession().save(article);
 	}
 
 	@Override

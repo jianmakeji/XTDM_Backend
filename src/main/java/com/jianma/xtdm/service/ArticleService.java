@@ -7,7 +7,7 @@ import com.jianma.xtdm.model.PageObject;
 
 public interface ArticleService {
 
-	public void createArticle(Article article);
+	public int createArticle(Article article);
 	
 	public void deleteArticle(int id);
 	
