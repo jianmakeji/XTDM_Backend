@@ -89,4 +89,20 @@ public class MusicController extends XTDMController {
 			throw new XTDMException(500, "获取数据出错");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getMusicKeywordByPage", method = RequestMethod.POST)
+	public ResultModel getArticleKeywordByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  String keyword,
+			@RequestParam  int offset, @RequestParam  int limit){
+		resultModel = new ResultModel();
+		try{
+			resultModel.setObject(musicServiceImpl.getMusicKeywordByPage(keyword, offset, limit));
+			resultModel.setResultCode(200);
+			resultModel.setSuccess(true);
+			return resultModel;
+		}
+		catch(Exception e){
+			throw new XTDMException(500, "获取数据出错");
+		}
+	}
 }

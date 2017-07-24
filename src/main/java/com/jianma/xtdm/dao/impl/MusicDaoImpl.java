@@ -59,4 +59,24 @@ public class MusicDaoImpl implements MusicDao {
         return (int)((Long)query.uniqueResult()).longValue();
 	}
 
+	@Override
+	public List<Music> getMusicKeywordByPage(String keyword, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " from Music m where m.name like :keyword order by a.createTime desc";
+		Query query = session.createQuery(hql);
+		query.setParameter("keyword","%"+keyword+"%");    
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+		return query.list();
+	}
+
+	@Override
+	public int getCountMusicByKeyword(String keyword) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select count(m) from Music m where m.name like :keyword";
+		Query query = session.createQuery(hql); 
+		query.setParameter("keyword","%"+keyword+"%");
+        return (int)((Long)query.uniqueResult()).longValue();
+	}
+
 }

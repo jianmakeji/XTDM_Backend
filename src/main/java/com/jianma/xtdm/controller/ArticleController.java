@@ -37,7 +37,6 @@ public class ArticleController extends XTDMController {
 		try {
 			article.setCreateTime(new Date());
 			int id = articleServiceImpl.createArticle(article);
-			System.out.println("======================================:"+id);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
 			resultModel.setObject(id);

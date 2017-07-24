@@ -91,9 +91,9 @@ public class ArticleDaoImpl implements ArticleDao {
 	public List<Article> getArticleKeywordByPage(String keyword, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = " select new Article(id,categoryId,title,abstractContent,label,"
-				+ " recommand,thumb,createTime) from Article a where a.title like :keyward order by a.createTime desc";
+				+ " recommand,thumb,createTime) from Article a where a.title like :keyword order by a.createTime desc";
 		Query query = session.createQuery(hql);
-		query.setParameter("keyward","%"+keyword+"%");    
+		query.setParameter("keyword","%"+keyword+"%");    
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);
 		return query.list();
@@ -102,9 +102,9 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public int getCountArticleByKeyword(String keyword) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select count(a) from Article a where a.title like :keyward";
+		String hql = "select count(a) from Article a where a.title like :keyword";
 		Query query = session.createQuery(hql); 
-		query.setParameter("keyward","%"+keyword+"%");
+		query.setParameter("keyword","%"+keyword+"%");
         return (int)((Long)query.uniqueResult()).longValue();
 	}
 

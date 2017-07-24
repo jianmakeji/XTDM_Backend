@@ -12,4 +12,6 @@ public interface MusicService {
 	public void updateMusic(Music music);
 	
 	public PageObject getMusicByPage(int offset, int limit);
+
+	public PageObject getMusicKeywordByPage(String keyword, int offset, int limit);
 }

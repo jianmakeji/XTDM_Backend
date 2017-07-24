@@ -15,4 +15,8 @@ public interface MusicDao {
 	public List<Music> getMusicByPage(int offset, int limit);
 	
 	public int getCountMusic();
+	
+	public List<Music> getMusicKeywordByPage(String keyword, int offset,int limit);
+	
+	public int getCountMusicByKeyword(String keyword);
 }

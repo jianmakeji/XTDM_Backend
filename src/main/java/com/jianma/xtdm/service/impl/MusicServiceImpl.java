@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jianma.xtdm.dao.MusicDao;
+import com.jianma.xtdm.model.Article;
 import com.jianma.xtdm.model.Category;
 import com.jianma.xtdm.model.Music;
 import com.jianma.xtdm.model.PageObject;
@@ -44,6 +45,16 @@ public class MusicServiceImpl implements MusicService {
 		PageObject pageObject = new PageObject();
 		List<Music> list = musicDaoImpl.getMusicByPage(offset, limit);
 		int countPage = musicDaoImpl.getCountMusic();
+		pageObject.setCount(countPage);
+		pageObject.setList(list);
+		return pageObject;
+	}
+
+	@Override
+	public PageObject getMusicKeywordByPage(String keyword, int offset, int limit) {
+		PageObject pageObject = new PageObject();
+		List<Music> list = musicDaoImpl.getMusicKeywordByPage(keyword, offset, limit);
+		int countPage = musicDaoImpl.getCountMusicByKeyword(keyword);
 		pageObject.setCount(countPage);
 		pageObject.setList(list);
 		return pageObject;
