@@ -91,7 +91,7 @@ public class MusicController extends XTDMController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getMusicKeywordByPage", method = RequestMethod.POST)
+	@RequestMapping(value="/getMusicKeywordByPage", method = RequestMethod.GET)
 	public ResultModel getArticleKeywordByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  String keyword,
 			@RequestParam  int offset, @RequestParam  int limit){
 		resultModel = new ResultModel();

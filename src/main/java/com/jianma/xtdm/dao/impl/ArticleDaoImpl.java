@@ -44,9 +44,19 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override
 	public List<Article> getArticleByPage(int categoryId, int offset, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " select new Article(id,categoryId,title,abstractContent,label,"
-				+ " recommand,thumb,createTime) from Article a order by a.createTime desc";
+		String hql = "";
+		if (categoryId == 0){
+			hql = " select new Article(id,categoryId,title,abstractContent,label,"
+					+ " recommand,thumb,type,createTime) from Article a order by a.createTime desc";
+		}
+		else{
+			hql = " select new Article(id,categoryId,title,abstractContent,label,"
+					+ " recommand,thumb,type,createTime) from Article a where a.categoryId = ? order by a.createTime desc";
+		}
 		Query query = session.createQuery(hql);
+		if (categoryId > 0){
+			query.setParameter(0, categoryId);
+		}
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);
 		return query.list();

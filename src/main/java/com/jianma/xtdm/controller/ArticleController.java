@@ -77,7 +77,7 @@ public class ArticleController extends XTDMController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getArticleByPage", method = RequestMethod.POST)
+	@RequestMapping(value="/getArticleByPage", method = RequestMethod.GET)
 	public ResultModel getArticleByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  int categoryId,
 			@RequestParam  int offset, @RequestParam  int limit){
 		resultModel = new ResultModel();
@@ -125,7 +125,7 @@ public class ArticleController extends XTDMController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getArticleKeywordByPage", method = RequestMethod.POST)
+	@RequestMapping(value="/getArticleKeywordByPage", method = RequestMethod.GET)
 	public ResultModel getArticleKeywordByPage(HttpServletRequest request, HttpServletResponse response, @RequestParam  String keyword,
 			@RequestParam  int offset, @RequestParam  int limit){
 		resultModel = new ResultModel();
