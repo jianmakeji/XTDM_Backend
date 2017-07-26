@@ -83,6 +83,9 @@ public class HomeController {
         else if(type == 2){
         	dir = "category/";
         }
+        else if(type == 3){
+        	dir = "article/";
+        }
         else{
         	dir = "others/";
         }
