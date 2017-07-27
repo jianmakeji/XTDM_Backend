@@ -21,6 +21,7 @@ import com.jianma.xtdm.model.Category;
 import com.jianma.xtdm.model.ResultModel;
 import com.jianma.xtdm.service.CategoryService;
 
+
 @Controller
 @RequestMapping(value = "/category")
 public class CategoryController extends XTDMController {
