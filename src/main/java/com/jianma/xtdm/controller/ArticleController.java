@@ -1,5 +1,6 @@
 package com.jianma.xtdm.controller;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ArticleController extends XTDMController {
 	public ResultModel createArticle(HttpServletRequest request, HttpServletResponse response, @RequestBody Article article){
 		resultModel = new ResultModel();
 		try {
-			article.setCreateTime(new Date());
+			article.setCreateTime(new Date()); 
 			int id = articleServiceImpl.createArticle(article);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);
