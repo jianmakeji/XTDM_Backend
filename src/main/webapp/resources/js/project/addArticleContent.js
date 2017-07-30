@@ -221,12 +221,8 @@ function loadingArticleById(id,ue) {
 			else if (recommand == 1){ //推荐 
 				$("#recommand1").attr("checked","checked");
 			}
-			
-<<<<<<< HEAD
-			categoryVue.selected = data.object.categoryId;
-=======
+
 			$("#categorySelect option[value='"+data.object.categoryId+"']").attr("selected", true);
->>>>>>> origin/master
 			
 			$("#uploadThumb").attr('src', data.object.thumb);
 			$("#uploadBg").attr('src', data.object.bgUrl);
@@ -261,12 +257,7 @@ $(document).ready(function() {
 		}],
 	});
 	
-<<<<<<< HEAD
-	var id = window.localStorage.getItem("updateArticleId");
-	console.log("id:"+id);
-=======
 	var id = window.localStorage.getItem("articleId");
->>>>>>> origin/master
 	
 	if(id > 0) { //编辑操作
 		loadingArticleById(id,ue);
@@ -279,10 +270,7 @@ $(document).ready(function() {
 		let title = $("#title").val();
 		let abstractData = $("#abstract").val();
 		let tag = $('.chips-initial').material_chip('data');
-<<<<<<< HEAD
-=======
-		
->>>>>>> origin/master
+
 		var label = "";
 		if (tag.length > 0){
 			tag.forEach(function(object,i){
