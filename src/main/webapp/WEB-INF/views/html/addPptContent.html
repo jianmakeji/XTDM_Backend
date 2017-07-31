@@ -28,14 +28,14 @@
 			<div id="picTxt" class="col s12">
 				<div class="row">
 					<div class="input-field col s12">
-						<i class="small material-icons prefix">subtitles</i> <input id="title" type="text" class="validate"> <label for="text">标题</label>
+						<i class="small material-icons prefix">subtitles</i> <input id="title" type="text" class="validate"> <label id="titleLabel" for="text">标题</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="small material-icons prefix">subtitles</i>
 						<textarea id="abstract" class="materialize-textarea"></textarea>
-						<label for="abstract">摘要</label>
+						<label id="abstractLabel" for="abstract">摘要</label>
 					</div>
 				</div>
 				<div class="row">
@@ -56,8 +56,10 @@
 					<div id="recommand">
 						<label>是否设置为推荐</label>
 						<p>
-							<input name="recommandGroup" type="radio" id="recommand1" /> <label for="recommand1">是</label> <input name="recommandGroup" type="radio" id="recommand2" /> <label
-								for="recommand2">否</label>
+							<input name="recommandGroup" type="radio" value="1" id="recommand1" /> 
+							<label for="recommand1">是</label> 
+							<input name="recommandGroup" type="radio" value="0" id="recommand2" checked />
+							<label for="recommand2">否</label>
 						</p>
 					</div>
 				</div>

@@ -199,9 +199,9 @@ function loadingArticleById(id,ue) {
 		},
 		success: function(data) {
 			$("#title").val(data.object.title);
-			$("#title").addClass('active');
+			$("#titleLabel").addClass('active');
 			$("#abstract").val(data.object.abstractContent);
-			$("#abstract").addClass('active');
+			$("#abstractLabel").addClass('active');
 			var label = data.object.label;
 			var labelArray = label.split(',');
 			var labelData = [];

@@ -46,7 +46,7 @@ var pptOSSUploaderObject = new uploadOSSObject("uploadPpt","image/jpg,image/jpeg
 var pptUploader = createUploader(pptOSSUploaderObject);	
 pptUploader.init();
 
-function loadingArticleById(id,ue) {
+function loadingArticleById(id) {
 
 	$.ajax({
 		type: "GET",
@@ -58,9 +58,10 @@ function loadingArticleById(id,ue) {
 		},
 		success: function(data) {
 			$("#title").val(data.object.title);
-			$("#title").addClass('active');
+			$("#titleLabel").addClass('active');
 			$("#abstract").val(data.object.abstractContent);
-			$("#abstract").addClass('active');
+			$("#abstractLabel").addClass('active');
+			
 			var label = data.object.label;
 			var labelArray = label.split(',');
 			var labelData = [];
@@ -87,7 +88,9 @@ function loadingArticleById(id,ue) {
 			$("#uploadBg").attr('src', data.object.bgUrl);
 			
 			pptDataList = JSON.parse(data.object.content);
+			vum.datas = pptDataList;
 			
+			console.log(pptDataList);
 			thumbImgUrl = data.object.thumb;
 			bgImgUrl = data.object.bgUrl;
 			$("#circleProgress").hide();
@@ -112,7 +115,7 @@ var vum = new Vue({
 	methods: {
 		updateData: function(e) {
 			let id = e.currentTarget.id;
-			console.log("id:"+id);
+
 			vum.datas.forEach(function(pptObj) {
 
 				if(pptObj.pptPicUrl == id) {
@@ -147,7 +150,7 @@ $(document).ready(function() {
 	var id = window.localStorage.getItem("articleId");
 	
 	if(id > 0) { //编辑操作
-		loadingArticleById(id,ue);
+		loadingArticleById(id);
 	}
 
 	$('.chips-initial').material_chip({
@@ -158,6 +161,7 @@ $(document).ready(function() {
 
 	$("#submitBtn").click(function() {
 		var recommand = $('input:radio:checked').val();
+		
 		let title = $("#title").val();
 		let abstractData = $("#abstract").val();
 		let tag = $('.chips-initial').material_chip('data');
