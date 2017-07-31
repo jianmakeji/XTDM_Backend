@@ -3,7 +3,6 @@ var insertOrUpdate = 0;
 
 var pptDataList = [];
 
-let aliyunOSSUrl = "aliyuncs.com";
 /**
  * 初始化下拉列表框
  */
@@ -142,6 +141,8 @@ $(document).ready(function() {
 	$("#ossThumbProgress").hide();
 	$("#ossBgProgress").hide();
 	$("#ossPptProgress").hide();
+
+	let aliyunOSSUrl = "aliyuncs.com";
 	
 	var id = window.localStorage.getItem("articleId");
 	
@@ -356,6 +357,7 @@ $(document).ready(function() {
 		$("#pptFileDescribe").html('');
 		$("#pptFileCompletePersent").html('');
 		$("#addPanel").hide();
+		$(".determinate").css("width","1%");
 		showCategory = 0;
 	});
 });
