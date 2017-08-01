@@ -58,6 +58,17 @@
 				background-color: #000000;
 				opacity: 0.7;
 			}
+			
+			#title{
+				width:100%;
+				margin-left:15px;
+				height:50px;
+			}
+			
+			#category{
+				width:100%;
+				margin-left:15px;
+			}
 		</style>
 	</head>
 
@@ -65,8 +76,8 @@
 		<div id="previewPanel">
 			<section id="previewTitle">
 				<div id="previewTitleContent">
-					<h1 id="title">“侗心乐坊”设计社会创新工作营开营</h1>
-					<h4 id="category">社区 2016-08-24</h4>
+					<h1 id="title"></h1>
+					<h4 id="category"></h4>
 				</div>
 			</section>
 			<section id="previewContent">
@@ -81,21 +92,6 @@
 	<script type="text/javascript" src="../resources/js/vue/vue.js"></script>
 		
 	<script type="text/javascript">
-		(function($) {
-			$.getUrlParam = function(name) {
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-				var r = window.location.search.substr(1).match(reg);
-				if(r != null) return unescape(r[2]);
-				return null;
-			}
-		})(jQuery);
-		var title = $.getUrlParam('title');
-		//var pptDataList = window.localStorage.getItem("pptDataList");
-		let windowHeight = $(window).height();
-		
-		//$("#previewContent").append(htmlContent);
-		var bgImage = $.getUrlParam('bgImage');
-		$("#previewTitle").css('background-image','url('+bgImage+')');
 		
 		var app = new Vue({
   			el: '#previewContent',
@@ -105,12 +101,15 @@
 		})
 		
 		$(document).ready(function(){
-			
+			$("#title").html(window.localStorage.getItem("pptTitle"));
+			$("#previewTitle").css('background-image','url('+window.localStorage.getItem("pptBgImgUrl")+')');
+			$("#previewTitle").css('background-repeat','no-repeat');
+			$("#previewTitle").css('background-size','cover');
 			var pptDataList = JSON.parse(window.localStorage.getItem("pptDataList"));	
-			console.log(pptDataList);
-			
 			app.datas = pptDataList;
-		 
+			var date = new Date();
+			
+			$("#category").html(window.localStorage.getItem("categorySelect")+" | "+date.toLocaleDateString());
 		});
 		
 	</script>

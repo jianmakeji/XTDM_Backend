@@ -82,6 +82,7 @@ function loadingArticleById(id) {
 				$("#recommand1").attr("checked","checked");
 			}
 			
+			categoryId = data.object.categoryId;
 			$("#categorySelect option[value='"+data.object.categoryId+"']").attr("selected", true);
 			
 			$("#uploadThumb").attr('src', data.object.thumb);
@@ -310,8 +311,10 @@ $(document).ready(function() {
 		}
 		
 		window.localStorage.setItem("pptDataList", JSON.stringify(pptDataList));
-
-		window.open("pptPreview.html?title=" + title + "&bgImgUrl=" + bgImgUrl);
+		window.localStorage.setItem("pptTitle",title);
+		window.localStorage.setItem("pptBgImgUrl",bgImgUrl);
+		window.localStorage.setItem("categorySelect",$('#categorySelect').find("option:selected").text());
+		window.open("pptPreview.html");
 	});
 
 	$("#cancelBtn").click(function() {

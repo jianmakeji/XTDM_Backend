@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	
-
 	$("#usernameLabel").addClass('active');
 	$("#passwordLabel").addClass('active');
 
