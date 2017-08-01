@@ -41,7 +41,7 @@
 			#title{
 				width:100%;
 				margin-left:15px;
-				height:50px;
+				height:90px;
 			}
 			
 			#category{
@@ -91,7 +91,12 @@
 		var countNumber =htmlContent.match(regixNumber).length;
 		var countLetter =htmlContent.match(regixLetter).length;
 		textCount = textCount - Math.ceil(countNumber/2);
-		textCount = textCount - Math.ceil(countLetter/2);
+		if (countLetter > 100){
+			textCount = textCount - Math.ceil(countLetter/2);
+		}
+		else{
+			textCount = textCount - Math.ceil(countLetter);
+		}
 		
 		let windowHeight = $(window).height();
 		let imgCount = $('#previewContent').children('img').length;

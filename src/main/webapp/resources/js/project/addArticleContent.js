@@ -233,7 +233,8 @@ $(document).ready(function() {
 		let title = $("#title").val();
 		let abstractData = $("#abstract").val();
 		let tag = $('.chips-initial').material_chip('data');
-
+		let bgImgUrl = $("#uploadBg").attr('src');
+		
 		if(title == "") {
 			Materialize.toast('标题不能为空!', 4000);
 			return;
