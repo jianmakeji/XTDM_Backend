@@ -45,6 +45,16 @@ public class HomeController {
 	 */
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public void login(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
+		try {
+			response.sendRedirect("html/login.html");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
 		try {
 			response.sendRedirect("html/login.html");

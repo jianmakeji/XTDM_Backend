@@ -22,12 +22,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jianma.xtdm.XTDMController;
+import com.jianma.xtdm.model.Music;
+import com.jianma.xtdm.model.ResultModel;
+import com.jianma.xtdm.model.User;
 import com.jianma.xtdm.service.UserService;
 import com.jianma.xtdm.util.GraphicsUtil;
+import com.jianma.xtdm.util.WebRequestUtil;
 
 
 /**
@@ -89,6 +94,45 @@ public class UserController extends XTDMController {
 			model.addAttribute("error", msg);
 			System.out.println(msg);
 		}
+	}
+	
+	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST)
+	public void ajaxLogin(HttpServletRequest request, Model model,HttpServletResponse response, @RequestBody User user) throws IOException {
+		ResultModel resultModel = new ResultModel();
+		String msg = "";
+		String username = user.getEmail();
+		String password = user.getPassword();
+
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		token.setRememberMe(true);
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			subject.login(token);
+			if (subject.isAuthenticated()) {
+				
+				//response.sendRedirect("../html/index.html");
+				resultModel.setResultCode(200);
+				WebRequestUtil.responseOutWithJson(response, resultModel);
+				return;
+			}
+		} catch (IncorrectCredentialsException e) {
+			msg = "登录密码错误.";
+		} catch (ExcessiveAttemptsException e) {
+			msg = "登录失败次数过多";
+		} catch (LockedAccountException e) {
+			msg = "帐号已被锁定.";
+		} catch (DisabledAccountException e) {
+			msg = "帐号已被禁用. ";
+		} catch (ExpiredCredentialsException e) {
+			msg = "帐号已过期.";
+		} catch (UnknownAccountException e) {
+			msg = "帐号不存在.或者未激活";
+		} catch (UnauthorizedException e) {
+			msg = "您没有得到相应的授权！";
+		}
+		resultModel.setResultCode(400);
+		resultModel.setMessage(msg);
+		WebRequestUtil.responseOutWithJson(response, resultModel);
 	}
 	
 	@RequestMapping(value = "/getCode", method = RequestMethod.GET)

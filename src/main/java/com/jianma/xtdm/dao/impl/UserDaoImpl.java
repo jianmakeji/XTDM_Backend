@@ -168,7 +168,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Optional<User> checkAuthc(String email) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " from User u where u.email = ? and u.activesign = 1 ";
+		String hql = " from User u where u.email = ? ";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, email);
 		List<User> list = query.list();

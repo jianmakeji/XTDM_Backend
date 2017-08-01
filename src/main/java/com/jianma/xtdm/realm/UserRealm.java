@@ -61,7 +61,6 @@ public class UserRealm extends AuthorizingRealm{
         	subject.getSession().setAttribute("userId", user.get().getId());
         	subject.getSession().setAttribute("email", username);
         	subject.getSession().setAttribute("realname", user.get().getRealname());
-        	
             return authenticationInfo;
             
         }

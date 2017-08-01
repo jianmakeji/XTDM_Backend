@@ -72,17 +72,29 @@
 		<property name="unauthorizedUrl" value="/"></property>
 		<property name="filterChainDefinitions">
 			<value>
-				/login=anon
-				/countDown=anon
-				/index=anon
-				/news/newsMgr=authc
-				/news/newsCOU=authc
-				/news/createNews=authc
-				/news/deleteNews=authc
-				/news/updateNews=authc
-				/news/findNewsById=anon
-				/news/findNewsByPage=anon
-				
+				/controller=authc
+				/uploadKey/*=authc
+				/article/create=authc
+				/article/delete/*=authc
+				/article/update=authc
+				/category/create=authc
+				/category/delete=authc
+				/category/update=authc
+				/category/getCategoryByPage=anon
+				/music/create=authc
+				/music/delete=authc
+				/music/update=authc
+				/music/getMusicByPage=anon
+				/music/getMusicKeywordByPage=anon
+				/html/index.html=authc
+				/html/addArticleContent.html=authc
+				/html/addPptContent.html=authc
+				/html/articlePreview.html=authc
+				/html/pptPreview.html=authc
+				/html/categorySetting.html=authc
+				/html/contentManage.html=authc
+				/html/musicManage.html=authc
+				/user/ajaxLogin=anon
 			</value>
 		</property>
 	</bean>
