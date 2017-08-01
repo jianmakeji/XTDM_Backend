@@ -1,5 +1,5 @@
 var prePage = 1; //前一页，用于css修改点击样式
-var currentPage = 0; //当前页码
+var currentPage = 1; //当前页码
 var searchOrSelect = 0;
 var categoryId = 0;
 
@@ -64,7 +64,7 @@ var vum = new Vue({
 
 			var deleteRequest = $.ajax({
 				type: "GET",
-				url: "../music/delete/"+id,
+				url: "../article/delete/"+id,
 				dataType: "json",
 				beforeSend: function() {
 					$("#circleProgress").show();
@@ -72,7 +72,7 @@ var vum = new Vue({
 			});
 			
 			var promise = deleteRequest.then(function(data){
-				var loadCurrentPageData = $.getJSON("../article/getArticleByPage", {offset:(currentPage - 1)*10,limit:10}, function(data) {
+				var loadCurrentPageData = $.getJSON("../article/getArticleByPage", {offset:(currentPage - 1)*10,limit:10,categoryId:categoryId}, function(data) {
 					vum.datas = data.object.list;
 				});
 				return loadCurrentPageData;

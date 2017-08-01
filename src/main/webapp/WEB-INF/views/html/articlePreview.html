@@ -37,6 +37,17 @@
 				bottom: 0px;
 				color: #666666;
 			}
+			
+			#title{
+				width:100%;
+				margin-left:15px;
+				height:50px;
+			}
+			
+			#category{
+				width:100%;
+				margin-left:15px;
+			}
 		</style>
 	</head>
 
@@ -44,8 +55,8 @@
 		<div id="previewPanel">
 			<section id="previewTitle">
 				<div id="previewTitleContent">
-					<h1 id="title">“侗心乐坊”设计社会创新工作营开营</h1>
-					<h4 id="category">社区 2016-08-24</h4>
+					<h1 id="title"></h1>
+					<h4 id="category"></h4>
 				</div>
 			</section>
 			<section id="previewContent">
@@ -55,23 +66,19 @@
 	</body>
 	<script type="text/javascript" src="../resources/js/jquery/jquery-3.2.1.js"></script>
 	<script type="text/javascript">
-		(function($) {
-			$.getUrlParam = function(name) {
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-				var r = window.location.search.substr(1).match(reg);
-				if(r != null) return unescape(r[2]);
-				return null;
-			}
-		})(jQuery);
-
-		var title = $.getUrlParam('title');
+		
 		var htmlContent = window.localStorage.getItem("htmlContent");
 		
 		$("#previewContent").append(htmlContent);
 		
-		var bgImage = $.getUrlParam('bgImage');
+		$("#title").html(window.localStorage.getItem("articleTitle"));
+		$("#previewTitle").css('background-image','url('+window.localStorage.getItem("articleBgImgUrl")+')');
+		$("#previewTitle").css('background-repeat','no-repeat');
+		$("#previewTitle").css('background-size','cover');
 		
-		$("#previewTitle").css('background-image','url('+bgImage+')');
+		var date = new Date();
+		
+		$("#category").html(window.localStorage.getItem("categorySelect")+" | "+date.toLocaleDateString());
 		
 		const columnWidth = 200;
 		const columnGap = 15;

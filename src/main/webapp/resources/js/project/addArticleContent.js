@@ -1,5 +1,3 @@
-var thumbImgUrl = "";
-var bgImgUrl = "";
 var categoryId = 1;
 var insertOrUpdate = 0;
 var categoryVue;
@@ -86,8 +84,7 @@ function loadingArticleById(id,ue) {
 			$("#uploadBg").attr('src', data.object.bgUrl);
 			//ue.setContent(data.object.content);
 			ue.execCommand('insertHtml', data.object.content);
-			thumbImgUrl = data.object.thumb;
-			bgImgUrl = data.object.bgUrl;
+			
 			$("#circleProgress").hide();
 
 		},
@@ -129,6 +126,9 @@ $(document).ready(function() {
 		let abstractData = $("#abstract").val();
 		let tag = $('.chips-initial').material_chip('data');
 
+		let thumbImgUrl = $("#uploadThumb").attr('src');
+		let bgImgUrl = $("#uploadBg").attr('src');
+		
 		var label = "";
 		if (tag.length > 0){
 			tag.forEach(function(object,i){
@@ -155,6 +155,17 @@ $(document).ready(function() {
 			Materialize.toast('文章标签不能为空!', 4000);
 			return;
 		}
+		
+		if(!$("#uploadThumb").text().indexOf(aliyunOSSUrl) > 0 ) {
+			Materialize.toast('缩略图不能为空!', 4000);
+			return;
+		}
+		
+		if(!$("#uploadBg").text().indexOf(aliyunOSSUrl) > 0 ) {
+			Materialize.toast('背景图片不能为空!', 4000);
+			return;
+		}
+		
 		let requestData = {
 			"title": title,
 			"abstractContent": abstractData,
@@ -240,8 +251,22 @@ $(document).ready(function() {
 			Materialize.toast('文章内容不能为空!', 4000);
 			return;
 		}
+		
+		if(!$("#uploadThumb").text().indexOf(aliyunOSSUrl) > 0 ) {
+			Materialize.toast('缩略图不能为空!', 4000);
+			return;
+		}
+		
+		if(!$("#uploadBg").text().indexOf(aliyunOSSUrl) > 0 ) {
+			Materialize.toast('背景图片不能为空!', 4000);
+			return;
+		}
+		
 		window.localStorage.setItem("htmlContent", htmlContent);
-
+		window.localStorage.setItem("articleTitle",title);
+		window.localStorage.setItem("articleBgImgUrl",bgImgUrl);
+		window.localStorage.setItem("categorySelect",$('#categorySelect').find("option:selected").text());
+		
 		window.open("articlePreview.html?title=" + title + "&bgImage=" + bgImgUrl);
 
 	});
