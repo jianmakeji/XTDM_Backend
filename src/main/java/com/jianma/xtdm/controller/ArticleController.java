@@ -21,6 +21,7 @@ import com.jianma.xtdm.exception.XTDMException;
 import com.jianma.xtdm.model.Article;
 import com.jianma.xtdm.model.ResultModel;
 import com.jianma.xtdm.service.ArticleService;
+import com.jianma.xtdm.util.Base64;
 
 @Controller
 @RequestMapping(value = "/article")
@@ -36,6 +37,7 @@ public class ArticleController extends XTDMController {
 		resultModel = new ResultModel();
 		try {
 			article.setCreateTime(new Date()); 
+			article.setContent(Base64.getFromBase64(article.getContent())); 
 			int id = articleServiceImpl.createArticle(article);
 			resultModel.setResultCode(200);
 			resultModel.setSuccess(true);

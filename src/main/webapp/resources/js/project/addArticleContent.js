@@ -82,8 +82,12 @@ function loadingArticleById(id,ue) {
 			
 			$("#uploadThumb").attr('src', data.object.thumb);
 			$("#uploadBg").attr('src', data.object.bgUrl);
-			//ue.setContent(data.object.content);
-			ue.execCommand('insertHtml', data.object.content);
+			
+			ue.addListener("ready", function () {
+		        // editor准备好之后才可以使用
+				//ue.setContent(data.object.content);
+				ue.execCommand('insertHtml', data.object.content);
+			});
 			
 			$("#circleProgress").hide();
 
@@ -100,7 +104,8 @@ function loadingArticleById(id,ue) {
 }
 
 $(document).ready(function() {
-
+	let aliyunOSSUrl = "aliyuncs.com";
+	
 	$("#ossThumbProgress").hide();
 	$("#ossBgProgress").hide();
 
@@ -166,6 +171,8 @@ $(document).ready(function() {
 			return;
 		}
 		
+		$.base64.utf8encode = true;
+		 
 		let requestData = {
 			"title": title,
 			"abstractContent": abstractData,
@@ -175,7 +182,7 @@ $(document).ready(function() {
 			"thumb": thumbImgUrl,
 			"bgUrl": bgImgUrl,
 			"type": 0,
-			"content": htmlContent
+			"content": $.base64.btoa(htmlContent)
 		};
 
 		var requestUrl = "";
