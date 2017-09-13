@@ -50,7 +50,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String exitCode = (String) SecurityUtils.getSubject().getSession()
 				.getAttribute(CaptchaServlet.KEY_CAPTCHA);
 		if (null == captcha || !captcha.equalsIgnoreCase(exitCode)) {
-			throw new CaptchaException("��֤�����?");
+			throw new CaptchaException("验证码错误");
 		}
  
 		Optional<User> user = userServiceImpl.findByEmail(username);
